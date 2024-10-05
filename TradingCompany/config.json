@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "TradingCompany": "Server=HP-Sofiya;Database=TradingCompany;Trusted_Connection=True;"
+  }
+}
