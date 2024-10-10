@@ -109,20 +109,21 @@ namespace DAL.Concrete
         public bool Update(OrderedGoods order, int id)
         {
             bool res = false;
+            int rowsAffected;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 using (var command = new SqlCommand("UPDATE tblOrderedGoods " +
                     "SET goods_id = @goodsId, cost_lost = @costLost, " +
-                    "amount_get = @amountGet, date = @date" +
+                    "amount_get = @amountGet, date = @date " +
                     "WHERE order_id = @orderId;", con))
                 {
                     command.Parameters.AddWithValue("@goodsId", order.Goods_Id);
                     command.Parameters.AddWithValue("@costLost", order.Cost_Lost);
                     command.Parameters.AddWithValue("@amountGet", order.Amount_Get);
                     command.Parameters.AddWithValue("@date", order.Date);
-                    command.Parameters.AddWithValue("@orderId", order.Order_Id);
-                    int rowsAffected = command.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@orderId", id);
+                    rowsAffected = command.ExecuteNonQuery();
                     if (rowsAffected != 0)
                         res = true;
                 }
