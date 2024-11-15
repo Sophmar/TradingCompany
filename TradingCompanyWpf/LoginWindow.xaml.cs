@@ -23,25 +23,5 @@ namespace TradingCompanyWpf
         {
             InitializeComponent();
         }
-
-        private void buttonRegister_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void buttonUnegistered_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void buttonLogin_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void buttonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
     }
 }

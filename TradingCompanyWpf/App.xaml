@@ -2,9 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TradingCompanyWpf"
+             xmlns:viewModel="clr-namespace:TradingCompanyWpf.ViewModels"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
+        
+        
+        
         <Style x:Key="styleTitle" TargetType="TextBlock">
             <Setter Property="Background" Value="Green"/>
             <Setter Property="Foreground" Value="GhostWhite"/>

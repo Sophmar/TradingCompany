@@ -16,19 +16,20 @@ namespace DAL.Concrete
         {
             connectionString = conString;
         }
-        public int Add(User user)
+        public int Add(User user, string password, string salt)
         {
             int newId;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 using (var command = new SqlCommand("INSERT INTO tblUsers " +
-                    "(login, password) " +
+                    "(login, password, salt, access_id) " +
                     "OUTPUT INSERTED.user_id " +
-                    "Values (@Login, @Password);", con))
+                    "Values (@Login, @passwd, @salt, 0);", con))
                 {
                     command.Parameters.AddWithValue("@Login", user.Login);
-                    command.Parameters.AddWithValue("@Password", user.Password);
+                    command.Parameters.AddWithValue("@passwd", password);
+                    command.Parameters.AddWithValue("@salt", salt);
                     newId = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
@@ -50,8 +51,8 @@ namespace DAL.Concrete
                             User ur = new User
                             {
                                 UserId = Convert.ToInt32(dataReader["user_id"]),
-                                Login = dataReader["login"].ToString(),
-                                Password = dataReader["password"].ToString()
+                                Login = dataReader["login"].ToString()
+                                
                             };
                             users.Add(ur);
                         }
@@ -77,7 +78,6 @@ namespace DAL.Concrete
                         {
                             ur.UserId = Convert.ToInt32(dataReader["user_id"]);
                             ur.Login = Convert.ToString(dataReader["login"]);
-                            ur.Password = Convert.ToString(dataReader["password"]);
                             return ur;
                         }
                     }
@@ -110,11 +110,10 @@ namespace DAL.Concrete
             {
                 con.Open();
                 using (var command = new SqlCommand("UPDATE tblUsers " +
-                    "SET user_id = @(user.Login), password = @(user.Password) " +
+                    "SET login = @(user.Login) " +
                     "WHERE user_id = @(user.UserId);", con))
                 {
                     command.Parameters.AddWithValue("@user.Login", user.Login);
-                    command.Parameters.AddWithValue("@user.Password", user.Password);
                     command.Parameters.AddWithValue("@user.UserId", user.UserId);
                     int rowsAffected = command.ExecuteNonQuery();
                     if (rowsAffected != 0)
@@ -122,6 +121,44 @@ namespace DAL.Concrete
                 }
             }
             return res;
+        }
+        public User GetByLogin(string login)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                using (var command = new SqlCommand("SELECT * FROM tblUsers WHERE login = @login;", con))
+                {
+                    command.Parameters.AddWithValue("@login", login);
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        User ur = new User();
+                        if (dataReader.Read())
+                        {
+                            ur.UserId = Convert.ToInt32(dataReader["user_id"]);
+                            ur.Login = Convert.ToString(dataReader["login"]);
+                            return ur;
+                        }
+                    }
+                }
+                return null;
+            }
+        }
+        public string GetPasswordByLogin(string login)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                using (var command = new SqlCommand("SELECT * FROM tblUsers WHERE login = @login;", con))
+                {
+                    command.Parameters.AddWithValue("@login", login);
+                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    {
+                        
+                    }
+                }
+                return null;
+            }
         }
     }
 }

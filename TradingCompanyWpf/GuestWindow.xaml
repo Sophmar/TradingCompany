@@ -5,28 +5,38 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TradingCompanyWpf"
-        mc:Ignorable="d" Height="300" Width="300" WindowStartupLocation="CenterScreen"
-        WindowStyle="None" AllowsTransparency="True" Background="White">
+        mc:Ignorable="d" Height="400" Width="400" WindowStartupLocation="CenterScreen" Background="White">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="80*"/>
             <RowDefinition Height="30*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="30*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
             <RowDefinition Height="60*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="1" Text="Welcome to Trading Company!" Height="80" TextWrapping="WrapWithOverflow" Style="{StaticResource styleTitle}"/>
-        <TextBlock Grid.Row="3" Text="Our contact information:" FontWeight="Bold"/>
-        <TextBlock Grid.Row="4" Text="Faculty of Applied Mathematics and Informatics"/>
-        <TextBlock Grid.Row="5" Text="Ivan Franko National University of Lviv"/>
+        <TextBlock Grid.Row="1" Text="Welcome to Trading Company!" 
+                   Height="80" TextWrapping="WrapWithOverflow" 
+                   Style="{StaticResource styleTitle}"/>
+        <TextBlock Grid.Row="3" Text="Our contact information:" FontWeight="Bold" Width="350"/>
+        <TextBlock Grid.Row="4" Text="Faculty of Applied Mathematics and Informatics" Width="350"/>
+        <TextBlock Grid.Row="5" Text="Ivan Franko National University of Lviv" Width="350"/>
 
         <fa:ImageAwesome Icon="university" Grid.Row="6" Height="40" Width="40" Foreground="ForestGreen"/>
-        <Button Content="X" HorizontalAlignment="Right" Background="Black" Foreground="White"  VerticalAlignment="Center" Width="25" FontWeight="ExtraBlack" Click="Button_Click"
-                />
-
+        <!--<Button Content="X" HorizontalAlignment="Right" 
+                Background="Black" Foreground="White"  
+                VerticalAlignment="Center" Width="25" 
+                FontWeight="ExtraBlack" Click="Button_Click"
+                />-->
 
 
     </Grid>

@@ -14,14 +14,30 @@ IConfiguration configuration = new ConfigurationBuilder()
     .Build();
 
 string connectionString = configuration.GetConnectionString("TradingCompany") ?? "";
-
 int i = 0;
 while (true)
 {
     Console.WriteLine("Enter your login and password.\nLogin: ");
     string login = Console.ReadLine();
+    string salt = null;
+    using (SqlConnection con = new SqlConnection(connectionString))
+    {
+        con.Open();
+        using (var command = new SqlCommand("SELECT * FROM tblUsers WHERE login = @login;", con))
+        {
+            command.Parameters.AddWithValue("@login", login);
+            using (SqlDataReader dataReader = command.ExecuteReader())
+            {
+                if (dataReader.Read())
+                {
+                    salt = Convert.ToString(dataReader["salt"]);
+
+                }
+            }
+        }
+    }
     Console.WriteLine("Password: ");
-    string password = ReadPasswordHash();
+    string password = ReadPasswordHash(salt);
     if (!Authentication(login, password))
     {
         Console.WriteLine("\nInvalid login or password.");
@@ -284,15 +300,34 @@ bool Authentication(string login, string password)
 {
     var dal = new UserDAL(connectionString);
     var users = dal.GetAll();
-    foreach (var user in users)
+    string passwd = null;
+    string salt = null;
+    using (SqlConnection con = new SqlConnection(connectionString))
     {
-        if (user.Login == login && user.Password == password)
+        con.Open();
+        using (var command = new SqlCommand("SELECT * FROM tblUsers WHERE login = @login;", con))
+        {
+            command.Parameters.AddWithValue("@login", login);
+            using (SqlDataReader dataReader = command.ExecuteReader())
+            {
+                if (dataReader.Read())
+                {
+                    passwd = Convert.ToString(dataReader["password"]);
+                    salt = Convert.ToString(dataReader["salt"]);
+
+                }
+            }
+        }
+    }
+        foreach (var user in users)
+    {
+        if (user.Login == login && passwd == password)
             return true;
     }
     return false;
 }
 
-string ReadPasswordHash()
+string ReadPasswordHash(string salt)
 {
     var passwd = string.Empty;
     ConsoleKey key;
@@ -312,9 +347,10 @@ string ReadPasswordHash()
             passwd += keyInfo.KeyChar;
         }
     } while (key != ConsoleKey.Enter);
+    string password = passwd + salt;
     using (SHA256 sha256Hash = SHA256.Create())
     {
-        byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(passwd));
+        byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < bytes.Length; i++)
             builder.Append(bytes[i].ToString("x2"));

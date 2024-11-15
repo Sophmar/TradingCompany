@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TradingCompanyWpf
 {
     /// <summary>
-    /// Interaction logic for GuestWindow.xaml
+    /// Interaction logic for SoldGoods.xaml
     /// </summary>
-    public partial class GuestWindow : Window
+    public partial class SoldGoods : UserControl
     {
-        public GuestWindow()
+        public SoldGoods()
         {
             InitializeComponent();
         }
-
     }
 }

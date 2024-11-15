@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTO
+namespace TradingCompanyWpf.ViewModels
 {
-    public class User
+    class SoldGoodsViewModel
     {
-        public int UserId { get; set; }
-        public string Login { get; set; }
     }
 }
-

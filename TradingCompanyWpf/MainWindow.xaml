@@ -4,19 +4,76 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TradingCompanyWpf"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="400">
+        Title="MainWindow" Height="730" Width="1250"
+        AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        <TabControl>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5">
-                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Grid Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border CornerRadius="10 10 0 0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FF008000" Offset="0"/>
+                        <GradientStop Color="LimeGreen" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border Grid.Row="1" CornerRadius="0 0 10 10" Background="Ivory"/>
+        </Grid>
+
+        <Border Background="Ivory" Grid.Row="1" BorderThickness="1" BorderBrush="GhostWhite" Width="125" CornerRadius="15" Margin="50 0 50 40">
+            <StackPanel Margin="1,-1,-1,1">
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <fa:ImageAwesome Icon="Home" Style="{StaticResource menuButtonIcon}"/>
+                        <TextBlock Text="Homepage" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <fa:ImageAwesome Icon="Dropbox" Style="{StaticResource menuButtonIcon}"/>
+                        <TextBlock Text="Sold Goods" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <fa:ImageAwesome Icon="HandshakeOutline" Style="{StaticResource menuButtonIcon}"/>
+                        <TextBlock Text="Ordered Goods" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <fa:ImageAwesome Icon="LineChart" Style="{StaticResource menuButtonIcon}"/>
+                        <TextBlock Text="Progress Diagram" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <ContentControl x:Name="MainContent" Grid.Column="1" Grid.Row="1" Margin="0 50 50 20" VerticalAlignment="Stretch">
+        </ContentControl>
     </Grid>
 </Window>
