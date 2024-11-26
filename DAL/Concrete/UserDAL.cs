@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,9 +17,11 @@ namespace DAL.Concrete
         {
             connectionString = conString;
         }
-        public int Add(User user, string password, string salt)
+        public int Add(User user, string password)
         {
-            int newId;
+            int newId = 0;
+            var salt = GenerateSalt();
+            var passwd = HashPasswordWithSalt(password, salt);
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
@@ -28,7 +31,7 @@ namespace DAL.Concrete
                     "Values (@Login, @passwd, @salt, 0);", con))
                 {
                     command.Parameters.AddWithValue("@Login", user.Login);
-                    command.Parameters.AddWithValue("@passwd", password);
+                    command.Parameters.AddWithValue("@passwd", passwd);
                     command.Parameters.AddWithValue("@salt", salt);
                     newId = Convert.ToInt32(command.ExecuteScalar());
                 }
@@ -52,7 +55,7 @@ namespace DAL.Concrete
                             {
                                 UserId = Convert.ToInt32(dataReader["user_id"]),
                                 Login = dataReader["login"].ToString()
-                                
+
                             };
                             users.Add(ur);
                         }
@@ -144,21 +147,65 @@ namespace DAL.Concrete
                 return null;
             }
         }
-        public string GetPasswordByLogin(string login)
+        public int Authentication(string login, string password)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            string storedHashedPassword = null;
+            string storedSalt = null;
+            int accessId = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                con.Open();
-                using (var command = new SqlCommand("SELECT * FROM tblUsers WHERE login = @login;", con))
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("SELECT password, salt, access_id FROM \"tblUsers\" WHERE login = @Login", connection))
                 {
-                    command.Parameters.AddWithValue("@login", login);
-                    using (SqlDataReader dataReader = command.ExecuteReader())
+                    command.Parameters.AddWithValue("@Login", login);
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        
+                        if (reader.Read())
+                        {
+                            storedHashedPassword = reader["password"].ToString();
+                            storedSalt = reader["salt"].ToString();
+                            accessId = Convert.ToInt32(reader["access_id"]);
+                        }
                     }
                 }
-                return null;
             }
+            if (storedHashedPassword == null || storedSalt == null)
+            {
+                return -1;
+            }
+            string hashedInputPassword = HashPasswordWithSalt(password, storedSalt);
+
+            if (hashedInputPassword == storedHashedPassword)
+                return accessId;
+            return -1;
+        }
+        public string HashPasswordWithSalt(string password, string salt)
+        {
+            var passwdWithSalt = password + salt;
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(passwdWithSalt);
+
+                byte[] hashBytes = sha256.ComputeHash(bytes);
+
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in hashBytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+        public string GenerateSalt(int size = 32)
+        {
+            byte[] saltBytes = new byte[size];
+
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(saltBytes);
+            }
+            return Convert.ToBase64String(saltBytes);
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace TradingCompanyWpf.Commands
 {
-    class RelayCommand
+    public class RelayCommand:ICommand
     {
         private Action<object> execute;
 

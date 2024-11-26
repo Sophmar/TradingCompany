@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TradingCompanyWpf"
         mc:Ignorable="d" Height="342" Width="340">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"/>
@@ -27,11 +33,18 @@
         <TextBlock Grid.Row="3" Grid.Column="0" Text="Password: " VerticalAlignment="Center" HorizontalAlignment="Right"  Style="{StaticResource simpleTextBlock}"/>
         <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch"
                  Margin="5" Width="170" 
-                 Text="{Binding UserNameInput, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                 Style="{StaticResource textBoxInError}"/>
         <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch"
-                 Margin="5" Width="170" 
-                 Text="{Binding PasswordUserInput, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
-            <Button Grid.Row="4"  Content="Register" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.417,0.697" Margin="46,10,0,0">
+                 Margin="5" Width="170"
+                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                 Style="{StaticResource textBoxInError}"/>
+        <Button Grid.Row="6" Content="Register" Cursor="Hand" 
+                VerticalAlignment="Top" RenderTransformOrigin="0.417,0.697" 
+                Margin="5,5,145,0" Grid.Column="1"
+                Command="{Binding RegisterCommand}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <TextBlock TextDecorations="Underline">
@@ -50,27 +63,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Grid.Column="1" Grid.Row="4"  Content="Stay unregistered" Cursor="Hand" VerticalAlignment="Top" Margin="60,10,10,0">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <TextBlock TextDecorations="Underline">
-                <ContentPresenter/>
-                    </TextBlock>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="Navy"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="Red"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <TextBlock x:Name="errormessage" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" OpacityMask="Crimson" Foreground="#FFE5572C"/>
-        <Button Grid.ColumnSpan="2" Grid.Row="5" Content="Login" Command="{Binding LogInCommand}" CommandParameter=""  Width="100" Height="30"/>
-        <Button Grid.ColumnSpan="2" Grid.Row="6" Content="Cancel" Width="70" Height="30"/>
+        <Button Grid.ColumnSpan="2" Grid.Row="5" Content="Login" Command="{Binding LogInCommand}"  Width="100" Height="30"/>
+
     </Grid>
 </Window>

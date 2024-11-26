@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TradingCompanyApp.Models.SoldGoodsDetailsModel>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sell_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Goods_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost_Get)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount_Lost)
+            </th>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sell_Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Goods_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost_Get)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount_Lost)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.Sell_Id }) |
+                    @Html.ActionLink("Details", "Details", new {  id=item.Sell_Id  }) |
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.Sell_Id  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

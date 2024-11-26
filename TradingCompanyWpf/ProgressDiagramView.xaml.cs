@@ -12,17 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TradingCompanyWpf.ViewModels;
 
 namespace TradingCompanyWpf
 {
     /// <summary>
-    /// Interaction logic for SoldGoods.xaml
+    /// Interaction logic for ProgressDiagramView.xaml
     /// </summary>
-    public partial class SoldGoods : UserControl
+    public partial class ProgressDiagramView : UserControl
     {
-        public SoldGoods()
+        public ProgressDiagramView(string connectionString)
         {
             InitializeComponent();
+            this.DataContext = new ProgressDiagramViewModel(connectionString);
         }
     }
 }

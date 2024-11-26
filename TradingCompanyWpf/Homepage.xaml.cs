@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TradingCompanyWpf.ViewModels;
 
 namespace TradingCompanyWpf
 {
@@ -23,6 +24,7 @@ namespace TradingCompanyWpf
         public Homepage()
         {
             InitializeComponent();
+            this.DataContext = new HomepageViewModel();
         }
     }
 }

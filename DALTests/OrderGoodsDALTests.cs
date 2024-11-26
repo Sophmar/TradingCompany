@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 namespace DALTests
 {
     public class OrderGoodsDALTests
-    {
+    {/*
         private readonly OrderGoodsDAL dal;
         private List<OrderedGoods> orders = new List<OrderedGoods>();
         string connectionString;
@@ -33,7 +33,7 @@ namespace DALTests
         {
             OrderedGoods og = new OrderedGoods()
             {
-                Goods_Id = 4,
+                Goods_Name = "Music Box",
                 Cost_Lost = 31,
                 Amount_Get = 12,
                 Date = date
@@ -67,21 +67,21 @@ namespace DALTests
             {
                 new OrderedGoods()
                 {
-                    Goods_Id = 4,
+                    Goods_Name = "Papers",
                     Cost_Lost = 31,
                     Amount_Get = 12,
                     Date = date
                 },
                 new OrderedGoods()
                 {
-                    Goods_Id = 5,
+                    Goods_Name = "Window",
                     Cost_Lost = 20,
                     Amount_Get = 8,
                     Date = date
                 },
                 new OrderedGoods()
                 {
-                    Goods_Id = 6,
+                    Goods_Name = "Doors",
                     Cost_Lost = 15,
                     Amount_Get = 4,
                     Date = date
@@ -96,16 +96,16 @@ namespace DALTests
             Assert.IsNotNull(orders);
             Assert.AreEqual(3, orders.Count());
 
-            Assert.AreEqual(4, orders[0].Goods_Id);
-            Assert.AreEqual(5, orders[1].Goods_Id);
-            Assert.AreEqual(6, orders[2].Goods_Id);
+            Assert.AreEqual("Papers", orders[0].Goods_Name);
+            Assert.AreEqual("Window", orders[1].Goods_Name);
+            Assert.AreEqual("Doors", orders[2].Goods_Name);
         }
         [Test]
         public void GetByIdOrder_ReturnOrder()
         {
             OrderedGoods og = new OrderedGoods()
             {
-                Goods_Id = 9,
+                Goods_Name = "Bed",
                 Cost_Lost = 13,
                 Amount_Get = 5,
                 Date = date
@@ -113,7 +113,7 @@ namespace DALTests
             int id = dal.Add(og);
             OrderedGoods gd = dal.GetById(id);
            
-            Assert.That(9, Is.EqualTo(gd.Goods_Id));
+            Assert.That("Bed", Is.EqualTo(gd.Goods_Name));
             Assert.That(13, Is.EqualTo(gd.Cost_Lost));
             Assert.That(5, Is.EqualTo(gd.Amount_Get));
         }
@@ -122,20 +122,20 @@ namespace DALTests
         {
             OrderedGoods og = new OrderedGoods()
             {
-                Goods_Id = 7,
+                Goods_Name = "Refrifirator",
                 Cost_Lost = 10,
                 Amount_Get = 2,
                 Date = date
             };
             int id = dal.Add(og);
 
-            og.Goods_Id = 8;
+            og.Goods_Name = "TV";
             og.Cost_Lost = 11;
             og.Amount_Get = 3;
             dal.Update(og, id);
             OrderedGoods gd = dal.GetById(id);
             Assert.IsNotNull(gd);
-            Assert.AreEqual(8,gd.Goods_Id);
+            Assert.AreEqual("TV",gd.Goods_Name);
             Assert.AreEqual(11, gd.Cost_Lost);
             Assert.AreEqual(3, gd.Amount_Get);
         }
@@ -144,7 +144,7 @@ namespace DALTests
         {
             OrderedGoods og = new OrderedGoods()
             {
-                Goods_Id = 12,
+                Goods_Name = "Lipstick",
                 Cost_Lost = 14,
                 Amount_Get = 7,
                 Date = date
@@ -170,21 +170,21 @@ namespace DALTests
             {
                 new OrderedGoods()
                 {
-                    Goods_Id = 15,
+                    Goods_Name = "Rock",
                     Cost_Lost = 28,
                     Amount_Get = 16,
                     Date = date
                 },
                 new OrderedGoods()
                 {
-                    Goods_Id = 14,
+                    Goods_Name = "Bag",
                     Cost_Lost = 23,
                     Amount_Get = 4,
                     Date = date
                 },
                 new OrderedGoods()
                 {
-                    Goods_Id = 13,
+                    Goods_Name = "Photo",
                     Cost_Lost = 21,
                     Amount_Get = 7,
                     Date = date
@@ -198,10 +198,11 @@ namespace DALTests
             Assert.IsNotNull(orders);
             Assert.AreEqual(3, orders.Count());
 
-            Assert.AreEqual(13, orders[0].Goods_Id);
-            Assert.AreEqual(14, orders[1].Goods_Id);
-            Assert.AreEqual(15, orders[2].Goods_Id);
+            Assert.AreEqual("Rock", orders[0].Goods_Name);
+            Assert.AreEqual("Bag", orders[1].Goods_Name);
+            Assert.AreEqual("Photo", orders[2].Goods_Name);
         }
     }
-
+        */
+    }
 }

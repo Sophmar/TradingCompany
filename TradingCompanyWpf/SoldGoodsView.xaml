@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="TradingCompanyWpf.SoldGoodsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TradingCompanyWpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="650">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="400*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="+ Add" FontSize="18" Command="{Binding AddCommand}"
+                    Height="49" Width="100" FontWeight="SemiBold" Margin="10 0 0 0"/>
+            <TextBox
+                     TextWrapping="Wrap" Width="213" Margin="315 0 0 0"
+                     Height="50" FontSize="18"
+                     Text="{Binding TextSearch, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <DataGrid Grid.Row="1" Style="{StaticResource CustomDataGridStyle}"
+                  ItemsSource="{Binding FilteredGoods, UpdateSourceTrigger=PropertyChanged}"
+                  FontSize="18" AutoGenerateColumns="False"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding GoodsName}"/>
+                <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

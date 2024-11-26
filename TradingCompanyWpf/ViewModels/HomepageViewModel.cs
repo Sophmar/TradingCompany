@@ -8,5 +8,6 @@ namespace TradingCompanyWpf.ViewModels
 {
     public class HomepageViewModel
     {
+
     }
 }

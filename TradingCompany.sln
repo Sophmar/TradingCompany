@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALTests", "DALTests\DALTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingCompanyWpf", "TradingCompanyWpf\TradingCompanyWpf.csproj", "{A3CF7CEF-C05D-4CD9-AEF1-18972C85124C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{D50F6D40-7507-46FD-841E-040602C565FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{D50F6D40-7507-46FD-841E-040602C565FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingCompanyApp", "TradingCompanyApp\TradingCompanyApp.csproj", "{2413318E-BD3C-4E70-9A82-EEF569334F42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{75E4840B-D66B-42F6-AE4E-DC4523B20596}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{D50F6D40-7507-46FD-841E-040602C565FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D50F6D40-7507-46FD-841E-040602C565FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D50F6D40-7507-46FD-841E-040602C565FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2413318E-BD3C-4E70-9A82-EEF569334F42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2413318E-BD3C-4E70-9A82-EEF569334F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2413318E-BD3C-4E70-9A82-EEF569334F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2413318E-BD3C-4E70-9A82-EEF569334F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75E4840B-D66B-42F6-AE4E-DC4523B20596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E4840B-D66B-42F6-AE4E-DC4523B20596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E4840B-D66B-42F6-AE4E-DC4523B20596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75E4840B-D66B-42F6-AE4E-DC4523B20596}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

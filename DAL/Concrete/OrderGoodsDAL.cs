@@ -18,12 +18,12 @@ namespace DAL.Concrete
             {
                 con.Open();
                 using (var command = new SqlCommand("INSERT INTO tblOrderedGoods " +
-                    "(goods_id, cost_lost, amount_get, date) " +
+                    "(goods_name, cost_lost, amount_get, date) " +
                     "OUTPUT INSERTED.order_id " +
-                    "Values (@goodsId, @costLost, " +
+                    "Values (@goods_name, @costLost, " +
                     "@amountGet, @date);", con))
                 {
-                    command.Parameters.AddWithValue("@goodsId", order.Goods_Id);
+                    command.Parameters.AddWithValue("@goods_name", order.Goods_Name);
                     command.Parameters.AddWithValue("@costLost", order.Cost_Lost);
                     command.Parameters.AddWithValue("@amountGet", order.Amount_Get);
                     command.Parameters.AddWithValue("@date", order.Date);
@@ -50,7 +50,7 @@ namespace DAL.Concrete
                         {
                             gd = new OrderedGoods();
                             gd.Order_Id = Convert.ToInt32(dataReader["order_id"]);
-                            gd.Goods_Id = Convert.ToInt32(dataReader["goods_id"]);
+                            gd.Goods_Name = dataReader["goods_name"].ToString();
                             gd.Cost_Lost = Convert.ToDecimal(dataReader["cost_lost"]);
                             gd.Amount_Get = Convert.ToInt32(dataReader["amount_get"]);
                             gd.Date = Convert.ToDateTime(dataReader["date"]);
@@ -76,7 +76,7 @@ namespace DAL.Concrete
                         if (dataReader.Read())
                         {
                             gd.Order_Id = Convert.ToInt32(dataReader["order_id"]);
-                            gd.Goods_Id = Convert.ToInt32(dataReader["goods_id"]);
+                            gd.Goods_Name = dataReader["goods_name"].ToString();
                             gd.Cost_Lost = Convert.ToDecimal(dataReader["cost_lost"]);
                             gd.Amount_Get = Convert.ToInt32(dataReader["amount_get"]);
                             gd.Date = Convert.ToDateTime(dataReader["date"]);
@@ -114,11 +114,11 @@ namespace DAL.Concrete
             {
                 con.Open();
                 using (var command = new SqlCommand("UPDATE tblOrderedGoods " +
-                    "SET goods_id = @goodsId, cost_lost = @costLost, " +
+                    "SET goods_name = @goodsName, cost_lost = @costLost, " +
                     "amount_get = @amountGet, date = @date " +
                     "WHERE order_id = @orderId;", con))
                 {
-                    command.Parameters.AddWithValue("@goodsId", order.Goods_Id);
+                    command.Parameters.AddWithValue("@goodsName", order.Goods_Name);
                     command.Parameters.AddWithValue("@costLost", order.Cost_Lost);
                     command.Parameters.AddWithValue("@amountGet", order.Amount_Get);
                     command.Parameters.AddWithValue("@date", order.Date);
@@ -141,7 +141,7 @@ namespace DAL.Concrete
                     col = "order_id";
                     break;
                 case 2:
-                    col = "goods_id";
+                    col = "goods_name";
                     break;
                 case 3:
                     col = "cost_lost";
@@ -165,7 +165,7 @@ namespace DAL.Concrete
                         {
                             gd = new OrderedGoods();
                             gd.Order_Id = Convert.ToInt32(dataReader["order_id"]);
-                            gd.Goods_Id = Convert.ToInt32(dataReader["goods_id"]);
+                            gd.Goods_Name = dataReader["goods_name"].ToString();
                             gd.Cost_Lost = Convert.ToDecimal(dataReader["cost_lost"]);
                             gd.Amount_Get = Convert.ToInt32(dataReader["amount_get"]);
                             gd.Date = Convert.ToDateTime(dataReader["date"]);

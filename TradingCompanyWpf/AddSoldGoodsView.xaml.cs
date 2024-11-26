@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TradingCompanyWpf.ViewModels;
 
 namespace TradingCompanyWpf
 {
     /// <summary>
-    /// Interaction logic for ProgressDiagram.xaml
+    /// Interaction logic for AddSoldGoodsView.xaml
     /// </summary>
-    public partial class ProgressDiagram : UserControl
+    public partial class AddSoldGoodsView : Window
     {
-        public ProgressDiagram()
+        public AddSoldGoodsView(SoldGoodsServices soldServices)
         {
             InitializeComponent();
+            this.DataContext = new AddSoldGoodsViewModel(soldServices);
         }
     }
 }

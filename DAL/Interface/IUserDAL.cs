@@ -9,12 +9,15 @@ namespace DAL.Interface
 {
     public interface IUserDAL
     {
-        public int Add(User user, string password, string salt);
+        public string HashPasswordWithSalt(string password, string salt);
+        public string GenerateSalt(int size = 32);
+        public int Add(User user, string password);
         public bool DeleteById(int id);
         public List<User> GetAll();
         public User GetById(int id);
         public bool Update(User user);
         public User GetByLogin(string login);
-        public string GetPasswordByLogin(string login);
+        public int Authentication(string login, string password);
+
     }
 }

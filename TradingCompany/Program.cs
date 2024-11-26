@@ -15,7 +15,7 @@ IConfiguration configuration = new ConfigurationBuilder()
 
 string connectionString = configuration.GetConnectionString("TradingCompany") ?? "";
 int i = 0;
-while (true)
+/*while (true)
 {
     Console.WriteLine("Enter your login and password.\nLogin: ");
     string login = Console.ReadLine();
@@ -357,3 +357,4 @@ string ReadPasswordHash(string salt)
         return builder.ToString();
     }
 }
+*/

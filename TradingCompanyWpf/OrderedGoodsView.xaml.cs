@@ -12,17 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TradingCompanyWpf.ViewModels;
 
 namespace TradingCompanyWpf
 {
     /// <summary>
     /// Interaction logic for OrderedGoods.xaml
     /// </summary>
-    public partial class OrderedGoods : UserControl
+    public partial class OrderedGoodsView : UserControl
     {
-        public OrderedGoods()
+        public OrderedGoodsView(string connectionString)
         {
             InitializeComponent();
+            this.DataContext = new OrderedGoodsViewModel(connectionString);
         }
+
     }
 }

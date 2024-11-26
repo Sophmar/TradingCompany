@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TradingCompanyWpf"
         mc:Ignorable="d"
-        Title="RegistrationWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="RegistrationWindow" Height="400" Width="397">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Height="370" VerticalAlignment="Top">
+        <StackPanel Margin="20,20,20,5">
+            <TextBlock Text="Registration" FontSize="25" FontWeight="Bold" 
+                       Margin="0,0,0,20" HorizontalAlignment="Center" TextAlignment="Center"
+                       Background="ForestGreen" Height="42" Width="353" Foreground="White"/>
+
+            <TextBlock Text="Login:"  FontSize="18"/>
+            <TextBox Margin="0,5,0,10" Height="30" FontSize="15" 
+                     Text="{Binding Login, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                     Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                     Style="{StaticResource textBoxInError}"/>
+
+            <TextBlock Text="Password:" FontSize="18"/>
+            <TextBox Text="{Binding Password, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                     Margin="0,5,0,10"
+                     Height="30" FontSize="15"
+                     Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                     Style="{StaticResource textBoxInError}"/>
+
+            <TextBlock Text="Confirm password:" 
+                       FontSize="18"/>
+            <TextBox Text="{Binding ConfirmPassword, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                     Margin="0,5,0,20" 
+                     Height="30" FontSize="15"
+                     Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                     Style="{StaticResource textBoxInError}"/>
+
+            <!--<TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,0,0,10" />-->
+
+            <Button Content="Sign up" Command="{Binding RegisterCommand}" 
+                    HorizontalAlignment="Center" 
+                    FontSize="18" Width="100" Height="30"/>
+        </StackPanel>
     </Grid>
 </Window>

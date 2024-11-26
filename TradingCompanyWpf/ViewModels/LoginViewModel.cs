@@ -7,50 +7,61 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using TradingCompanyWpf.Commands;
+using DAL.Concrete;
+using BLL.Concrete;
+using BLL.Interfaces;
+using TradingCompanyWpf.Models;
+using DTO;
 
 namespace TradingCompanyWpf.ViewModels
 {
-    public class LoginViewModel: INotifyPropertyChanged, IDataErrorInfo
+    public class LoginViewModel : BaseViewModel, IDataErrorInfo
     {
-
-        public LoginViewModel() 
+        private string connectionString;
+        private string _userName = string.Empty;
+        public string Username
         {
-            LoginCommand = new RelayCommand(Login, param => string.IsNullOrEmpty(Error));
-        }
-
-        public ICommand LoginCommand { get; }
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private string _login = string.Empty;
-        private string _password = string.Empty;
-
-        public string UserLogin
-        {
-            get => _login;
+            get => _userName;
             set
             {
-                if (_login != value)
+                if (_userName != value)
                 {
-                    _login = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UserLogin)));
+                    _userName = value;
+                    OnPropertyChanged(Username);
                 }
             }
         }
 
-        public string PasswordUserInput
+        private string _password = string.Empty;
+        public string Password
         {
-            get => _password;
+            get
+            {
+                return _password;
+            }
             set
             {
                 if (_password != value)
                 {
                     _password = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PasswordUserInput)));
+                    OnPropertyChanged(Password);
                 }
             }
         }
+        public ICommand LogInCommand { get; }
+        public ICommand RegisterCommand { get; }
 
-        public ICommand GreetCommand { get; }
+        UserDAL udal;
+        UserServices userv;
+
+        public LoginViewModel(string conString)
+        {
+            connectionString = conString;
+            udal = new UserDAL(conString);
+            userv = new UserServices(udal);
+            LogInCommand = new RelayCommand(Login, param => string.IsNullOrEmpty(Error));
+            RegisterCommand = new RelayCommand(p => Register());
+        }
 
         public string this[string columnName]
         {
@@ -61,7 +72,7 @@ namespace TradingCompanyWpf.ViewModels
                 {
                     result = ValidateLogin();
                 }
-                if(columnName == "PasswordUserInput")
+                if (columnName == "PasswordUserInput")
                 {
                     result = ValidatePassword();
                 }
@@ -79,11 +90,11 @@ namespace TradingCompanyWpf.ViewModels
 
         private string ValidateLogin()
         {
-            if (string.IsNullOrWhiteSpace(UserLogin))
+            if (string.IsNullOrWhiteSpace(Username))
             {
                 return "Login cannot be empty";
             }
-            else if (UserLogin.Contains(" "))
+            else if (Username.Contains(" "))
             {
                 return "Using space is not allowed";
             }
@@ -92,16 +103,37 @@ namespace TradingCompanyWpf.ViewModels
 
         private string ValidatePassword()
         {
-            if (string.IsNullOrWhiteSpace(PasswordUserInput))
+            if (string.IsNullOrWhiteSpace(Password))
             {
                 return "Password cannot be empty";
             }
-            else if (PasswordUserInput.Contains(" "))
+            else if (Password.Contains(" "))
             {
                 return "Using space is not allowed";
             }
             return string.Empty;
         }
+        private void Login(object parameter)
+        {
+            int isAuthenticated = userv.Authentication(Username, Password);
 
+            if (isAuthenticated >= 0)
+            {
+                UserModel model = UserMapper.MapToUserModel(userv.GetUserByLogin(Username));
+                model.AccessId = isAuthenticated;
+                MainWindow mainWindow = new MainWindow(connectionString, model);
+                Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive)?.Close();
+                mainWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Invalid username or password. Please try again.");
+            }
+        }
+        private void Register()
+        {
+            RegistrationWindow rg = new RegistrationWindow(connectionString);
+            rg.Show();
+        }
     }
 }

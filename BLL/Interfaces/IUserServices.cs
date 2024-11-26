@@ -11,6 +11,7 @@ namespace BLL.Interfaces
     {
         User GetUserById(int id);
         User GetUserByLogin(string login);
-        bool Authentication(string login, string password);
+        int Authentication(string login, string password);
+        public int Add(User user, string password);
     }
 }

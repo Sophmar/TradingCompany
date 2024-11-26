@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="TradingCompanyWpf.OrderedGoodsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TradingCompanyWpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <TextBox HorizontalAlignment="Right" 
+                 TextWrapping="Wrap"  VerticalAlignment="Top" Width="200" Height="49"
+                 FontSize="18"
+                 Text="{Binding TextSearch, UpdateSourceTrigger=PropertyChanged}"/>
+        <DataGrid Style="{StaticResource CustomDataGridStyle}"
+            ItemsSource="{Binding FilteredGoods, UpdateSourceTrigger=PropertyChanged}"
+                  Margin="0,49,0,0" FontSize="18" AutoGenerateColumns="False"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding GoodsName}"/>
+                <DataGridTextColumn Header="Cost" Binding="{Binding Cost}"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+    </Grid>
+</UserControl>

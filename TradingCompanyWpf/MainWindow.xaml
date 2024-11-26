@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TradingCompanyWpf"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="MainWindow" Height="730" Width="1250"
+        Title="MainWindow" Height="600" Width="950"
         AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
     <Window.Resources>
         <ResourceDictionary>
@@ -43,28 +43,34 @@
 
         <Border Background="Ivory" Grid.Row="1" BorderThickness="1" BorderBrush="GhostWhite" Width="125" CornerRadius="15" Margin="50 0 50 40">
             <StackPanel Margin="1,-1,-1,1">
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" Command="{Binding ShowHomepageCommand}">
                     <StackPanel>
                         <fa:ImageAwesome Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Homepage" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" 
+                        Command="{Binding ShowSoldGoodsCommand}"
+                        IsEnabled="{Binding IsBtnEnabled}">
                     <StackPanel>
                         <fa:ImageAwesome Icon="Dropbox" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Sold Goods" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" 
+                        Command="{Binding ShowOrderedGoodsCommand}"
+                        IsEnabled="{Binding IsBtnEnabled}">
                     <StackPanel>
                         <fa:ImageAwesome Icon="HandshakeOutline" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Ordered Goods" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}"
+                        Command="{Binding ShowDiagramCommand}"
+                        IsEnabled="{Binding IsBtnEnabled}">
                     <StackPanel>
                         <fa:ImageAwesome Icon="LineChart" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Progress Diagram" Style="{StaticResource menuButtonText}"/>
@@ -72,8 +78,16 @@
                 </Button>
             </StackPanel>
         </Border>
+        <Button Style="{StaticResource menuButton}" 
+                VerticalAlignment="Top" Grid.Row="1" Margin="62,490,63,0"
+                Command="{Binding LogOutCommand}">
+            <StackPanel>
+                <fa:ImageAwesome Icon="SignOut" Style="{StaticResource menuButtonIcon}"/>
+                <TextBlock Text="Logout" Style="{StaticResource menuButtonText}"/>
+            </StackPanel>
+        </Button>
 
-        <ContentControl x:Name="MainContent" Grid.Column="1" Grid.Row="1" Margin="0 50 50 20" VerticalAlignment="Stretch">
+        <ContentControl x:Name="MainContent" Content="{Binding CurrentView}" Grid.Column="1" Grid.Row="1" Margin="0 50 50 20" VerticalAlignment="Stretch">
         </ContentControl>
     </Grid>
 </Window>

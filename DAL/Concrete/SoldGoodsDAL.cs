@@ -17,21 +17,21 @@ namespace DAL.Concrete
         }
         public int Add(SoldGoods sale)
         {
-            int newId;
+            int newId = 0;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 using (var command = new SqlCommand("INSERT INTO tblSoldGoods " +
-                    "(goods_id, cost_get, amount_lost, date) " +
-                    "OUTPUT INSERTED.sale_id " +
-                    "Values (@goodsId, @costGet, " +
+                    "(goods_name, cost_get, amount_lost, date) " +
+                    "OUTPUT INSERTED.sell_id " +
+                    "Values (@goodsName, @costGet, " +
                     "@amountLost, @date);", con))
                 {
-                    command.Parameters.AddWithValue("@goodsId", sale.Goods_Id);
+                    command.Parameters.AddWithValue("@goodsName", sale.Goods_Name);
                     command.Parameters.AddWithValue("@costGet", sale.Cost_Get);
                     command.Parameters.AddWithValue("@amountLost", sale.Amount_Lost);
                     command.Parameters.AddWithValue("@date", sale.Date);
-                    newId = Convert.ToInt32((decimal)command.ExecuteScalar());
+                    newId = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
             return newId;
@@ -54,7 +54,7 @@ namespace DAL.Concrete
                                 SoldGoods sd = new SoldGoods
                                 {
                                     Sell_Id = Convert.ToInt32(dataReader["sell_id"]),
-                                    Goods_Id = Convert.ToInt32(dataReader["goods_id"]),
+                                    Goods_Name = dataReader["goods_name"].ToString(),
                                     Cost_Get = Convert.ToDecimal(dataReader["cost_get"]),
                                     Amount_Lost = Convert.ToInt32(dataReader["amount_lost"]),
                                     Date = Convert.ToDateTime(dataReader["date"])
@@ -83,7 +83,7 @@ namespace DAL.Concrete
                         if (dataReader.Read())
                         {
                             sd.Sell_Id = Convert.ToInt32(dataReader["sell_id"]);
-                            sd.Goods_Id = Convert.ToInt32(dataReader["goods_id"]);
+                            sd.Goods_Name = dataReader["goods_name"].ToString();
                             sd.Cost_Get = Convert.ToDecimal(dataReader["cost_get"]);
                             sd.Amount_Lost = Convert.ToInt32(dataReader["amount_lost"]);
                             sd.Date = Convert.ToDateTime(dataReader["date"]);
@@ -101,7 +101,7 @@ namespace DAL.Concrete
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                using (var command = new SqlCommand("DELETE FROM SoldGoods WHERE sell_id = @id;", con))
+                using (var command = new SqlCommand("DELETE FROM tblSoldGoods WHERE sell_id = @id;", con))
                 {
                     command.Parameters.AddWithValue("@id", id);
                     int rowsAffected = command.ExecuteNonQuery();
@@ -119,11 +119,11 @@ namespace DAL.Concrete
             {
                 con.Open();
                 using (var command = new SqlCommand("UPDATE tblSoldGoods " +
-                    "SET goods_id = @goodsId, cost_get = @costGet, " +
+                    "SET goods_name = @goodsName, cost_get = @costGet, " +
                     "amount_lost = @amountLost, date = @date " +
                     "WHERE sell_id = @Id", con))
                 {
-                    command.Parameters.AddWithValue("@goodsId", sale.Goods_Id);
+                    command.Parameters.AddWithValue("@goodsName", sale.Goods_Name);
                     command.Parameters.AddWithValue("@costGet", sale.Cost_Get);
                     command.Parameters.AddWithValue("@amountLost", sale.Amount_Lost);
                     command.Parameters.AddWithValue("@date", sale.Date);
@@ -147,7 +147,7 @@ namespace DAL.Concrete
                     col = "sell_id";
                     break;
                 case 2:
-                    col = "goods_id";
+                    col = "goods_name";
                     break;
                 case 3:
                     col = "cost_get";
@@ -170,7 +170,7 @@ namespace DAL.Concrete
                         {
                             sd = new SoldGoods();
                             sd.Sell_Id = Convert.ToInt32(dataReader["sell_id"]);
-                            sd.Goods_Id = Convert.ToInt32(dataReader["goods_id"]);
+                            sd.Goods_Name = dataReader["goods_name"].ToString();
                             sd.Cost_Get = Convert.ToDecimal(dataReader["cost_get"]);
                             sd.Amount_Lost = Convert.ToInt32(dataReader["amount_lost"]);
                             sd.Date = Convert.ToDateTime(dataReader["date"]);

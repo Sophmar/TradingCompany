@@ -7,8 +7,6 @@
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
         
-        
-        
         <Style x:Key="styleTitle" TargetType="TextBlock">
             <Setter Property="Background" Value="Green"/>
             <Setter Property="Foreground" Value="GhostWhite"/>
